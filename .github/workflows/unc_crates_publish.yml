@@ -1,14 +1,9 @@
 name: Unc Crates Publish
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        type: string
-        required: true
-        description: Branch name or tag to publish crates from
   schedule:
-    - cron:  '*/15 * * * *'
+    - cron:  '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   publish-cargo-crates:
