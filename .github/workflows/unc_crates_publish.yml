@@ -8,7 +8,7 @@ on:
         required: true
         description: Branch name or tag to publish crates from
   schedule:
-    - cron:  '0 * * * *'
+    - cron:  '*/15 * * * *'
 
 jobs:
   publish-cargo-crates:
