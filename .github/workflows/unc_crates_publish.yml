@@ -8,18 +8,18 @@ on:
 jobs:
   publish-cargo-crates:
     name: "Publish unc-workspaces on crates.io https://crates.io/crates/unc-workspaces"
-    runs-on: "ubuntu-22.04-2core"
-    #environment: deploy
+    runs-on: "ubuntu-latest"
+    environment: deploy
     permissions:
       contents: write # required for crates push
     timeout-minutes: 30 
     
     steps:
-      - name: Checkout utnet-org/utility's main branch
+      - name: Checkout jong-un-crypto/unc's ${{ github.event.inputs.branch }} branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ github.event.inputs.branch }}
       - name: Set up git user
         uses: fregante/setup-git-user@v2
       - name: Publish unc-workspaces on crates.io
@@ -32,10 +32,10 @@ jobs:
               --no-git-commit --no-git-push --no-individual-tags --tag-prefix 'crates-' \
               --tag-msg $$'crates.io snapshot\n---%{\n- %n - https://crates.io/crates/%n/%v}'
 
-      - name: Create tag on https://github.com/utnet-org/utility
+      - name: Create tag on https://github.com/jong-un-crypto/unc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push --no-follow-tags https://github.com/utnet-org/utility.git tag 'crates-*'
+          git push --no-follow-tags https://github.com/jong-un-crypto/unc.git tag 'crates-*'
 
 
